@@ -1,0 +1,190 @@
+@use "variables" as v;
+
+.contenedor-index{
+        height: auto;
+        width: 95%;
+        margin:auto;
+
+        background: linear-gradient( rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.6)) ,
+        url(../asset/img/FondoMadera2.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        display:flex;
+        flex-direction: row;
+        
+        padding-top: 10px;
+
+        .s1{
+            height:90%;
+            width:70%;
+            
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img{
+                 height: 50%;
+                 width: 50%;
+                 margin-bottom: 15px;
+            }
+            p{  
+                height: 50%;
+                width: 50%;
+                
+                color:v.$colorprincipal;
+                font-family: v.$fuente;
+                font-size: px;
+                text-align:left;
+                margin-top: 8px;
+                
+            }
+
+        } /*Final class s1*/
+
+        .s2{
+            height:auto;
+            width:50%;
+
+            display: flex;
+            flex-direction: column;
+            
+            
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            
+           
+
+            h2{
+                 font-family: v.$fuente;
+                 font-weight: 500;
+                 font-size: 28px;
+                 color:v.$colorprincipal;
+
+                 display: inline-block;
+                 margin: 0 0.5rem;
+             
+                 animation: heartBeat; 
+                 animation-duration: 1s;
+                 animation-iteration-count: 3;
+                 
+            }
+
+
+            .slide{ 
+                    height:40%;
+                    width: 60%;
+                    margin: 10px auto;
+                    background: linear-gradient(rgb(0, 0,0, 0.6),
+                    rgb(0, 0, 0,0.8));
+
+                    text-align: center;
+                    align-items: center;
+                    
+                    .carousel-inner .carousel-item{
+
+                             
+                             img{
+                                height:50% ;
+                                width:55%;
+                                background-repeat: no-repeat;
+                                text-align: center;
+                             }
+
+                             p {
+                                 width:75%;
+                                 margin: 0 auto;
+                                 font-family: v.$fuente;
+                                 color:v.$colorprincipal;
+                                 text-transform: uppercase;
+                                 font-weight: 400;
+                                 font-size: 12px;
+                                 text-align: center;
+                                }
+                           } 
+                 }
+            
+        } /*Final class s2*/
+
+}/*Final contenedor-index*/
+
+
+@include v.mobile{
+    
+
+    .contenedor-index{
+        height: auto;
+        
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+
+        .s1{
+            height:50%;
+            width:auto;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+
+            img{
+                height: 35%;
+                width: 50%;
+            }
+            p{
+               width: 80%;
+              font-size: 14px;
+              text-align: justify;
+              margin-top: 10px;
+
+            }
+        }
+
+        .s2{
+             height:80%;
+             width:auto;
+             display: flex;
+             flex-direction: column;
+             justify-content: center;
+             text-align: center;
+             margin:0;
+
+             h2{
+                 font-size:18px;
+                 margin-top: 5px;
+               
+                 animation-duration: 1.5s;
+                 animation-iteration-count: 4;
+               }
+            
+               .slide{
+                     height: 45vh;
+                     width: auto;
+                     margin-top: 2vh;;
+
+                     .carousel-inner .carousel-item{
+                                img{
+                                height:35vh ;
+                                width:auto;
+                                background-repeat: no-repeat;
+                                text-align: center;
+                                 }
+                                p {
+                                 font-size: 12px;
+                                 text-align: center;
+                                }
+                          } 
+                 }
+
+            }
+
+    }
+
+
+}
+
+

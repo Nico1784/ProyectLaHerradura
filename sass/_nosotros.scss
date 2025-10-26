@@ -1,0 +1,162 @@
+@use "variables" as v;
+
+
+.main-nosotros{
+    height: auto;
+    width: auto;
+    
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
+    url(../asset/img/FondoNosotros.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+    
+    display: flex;
+    flex-direction: row;
+
+    .s1-Nosotros{
+         
+         display: flex;
+         flex-direction: column;
+         height: 90vh;
+         width:50%;
+         justify-content:center;
+         align-items: center;
+         margin-top: 10px;
+
+         .imgNosotros{
+             height: 50vh;
+             width: 80%;
+           }
+
+         .pNosotross1{
+             width: 90%;
+             font-family: v.$fuente;
+              font-weight: 400;
+             font-size: 20px;
+             color: v.$colorprincipal;
+             text-align: center;
+             margin-top: 3vh;
+           }
+    }
+
+    .s2-Nosotros{
+         height: 90vh;
+         width:50%;
+         display: flex;
+         flex-direction: column;
+         justify-content:center;
+         align-items:left;
+         gap:2vw;
+         margin-top: 20px;
+
+        .contenedor-logo{
+           display: flex;
+           align-items: center;
+           justify-content:flex-start;
+           gap: 1vw;
+
+          .logo{
+             height:6vh;
+             width: auto;
+            }
+
+          p{
+            font-family: v.$fuente;
+            font-size: 20px;
+            color: v.$colorprincipal;
+            }
+        }
+
+        .iframe-maps{
+            height: 40vh;
+            width: 45vw;
+            margin: 2rem 0;
+            border: 3px solid rgb(95, 92, 92);
+        }
+    }
+
+}
+
+@include v.mobile{
+    .main-nosotros{
+        height: auto;
+         
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+
+          .s1-Nosotros{
+             flex-direction: column;
+             height: auto;
+             width:100%;
+             align-items: center;
+             margin-top:20px;
+
+             .imgNosotros{
+                 height: auto;
+                 width: 50vw;
+                }
+             .pNosotross1{
+                 font-weight: 100;
+                 font-size: 15px;
+                 width: 50vw;
+                
+
+                 text-align: center;
+                 margin-top: 2vh;
+               }
+           }
+          .s2-Nosotros{
+                 height: auto;
+                 width:70%;
+                 display: flex;
+
+                 flex-direction: column;
+                justify-content:center;
+                  
+                 .contenedor-logo{
+                   width: 100%;
+                   display: flex;
+                   text-align: center;
+                   justify-content: center;
+
+                    .logo{
+                         height:5vh;
+                        
+                        }
+                    p{
+                        font-size: 15px;
+                    }
+                 }       
+                 .iframe-maps{
+                     height: 40vh;
+                     width: auto;
+                     
+                     border: 3px solid rgb(95, 92, 92);
+                   }    
+                }
+
+
+            
+
+    
+
+
+
+    }
+}
+
+@include v.tablet{
+
+         .main-nosotros .s1-Nosotros{
+           margin:0;
+         
+            .imgNosotros{
+             height: 30vh;
+             width: 40vw;
+            }
+         }
+
+}

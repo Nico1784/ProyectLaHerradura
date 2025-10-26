@@ -1,0 +1,231 @@
+@use"variables" as v;
+
+.contenedor-header{
+      background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)) ,
+      url(../asset/img/fondoHerramientas1.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: left center;
+
+      height: 18vh;
+      width: auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.5px solid rgb(95, 92, 92) ;
+
+         .logo{
+               display: flex;
+               flex-direction: column;
+               align-items:center;
+
+             img{
+                  background-repeat: no-repeat;
+                  height: 10vh;
+                  width: 10vw;
+                  }
+
+                p{
+                     color: v.$colorprincipal;
+                     font-size: 20px;
+                     font-family: v.$fuente;
+                     font-weight: 400;
+                     margin: 0;
+                  }
+            }
+
+         h1{
+            font-family: v.$fuente;
+            font-weight: 250;
+            font-size: 25px;
+            color:v.$colorprincipal;
+            margin:0;
+            text-align: center;
+         }
+                
+
+         nav a{
+            text-decoration: none;
+            font-family: v.$fuente;
+            font-weight:100;
+            color: v.$colorprincipal;
+            font-size: 20px;
+            padding: 0 8px;
+         }
+
+         a:hover{
+                color:rgba(255, 196, 0, 0.993);
+                  background-color: rgb(59, 41, 1);
+              }
+
+      
+  
+
+
+
+
+
+}     
+
+@include v.mobile{
+     .contenedor-header{
+
+         height: 20vh;
+         width: auto;
+         display: grid;
+
+         grid-template-columns: 1fr 1fr 1fr  ;
+         grid-template-rows: repeat(2,1fr);
+
+         align-items: center;
+         justify-content: center;
+     
+
+        .logo{
+           height: 100%;
+           width: auto;
+           
+           grid-column: 1/3;
+           grid-row: 1/2;
+        
+           flex-direction: row;
+           justify-content: center;
+           text-align: center;
+
+           img{
+              height: 11vh;
+              width:auto;
+              
+              text-align: center;      
+            }
+
+            p{
+             display:none;
+             font-size: 10px;
+             align-items: center;
+            }
+         }   
+          
+        nav{
+            width: auto;
+            grid-row: 2/3;
+            grid-column: 1/4;
+            text-align: center;
+            justify-content: space-around;
+            
+         
+            a{
+               font-size: 15px;
+               font-weight: 400;
+               padding: 0;
+               margin: 4px
+          }
+         }
+
+        h1{
+            grid-column: 3/4;
+            grid-row: 1/2;
+
+            font-size: 18px;
+            text-align: center;
+            justify-content: center;
+         }
+      }
+   }
+
+@include v.tablet{
+
+   .contenedor-header{
+      height: 18vh;
+
+      .logo img{
+                height: 8vh;
+                 width: 10vw;
+               }
+      .logo p{
+              font-size: 15px;
+              font-weight: 200;
+            }
+      h1{
+            font-size: 18px;
+         }
+      nav a{
+            font-size: 12px;
+            padding: 0 4px;
+         }
+
+         
+    }
+    
+
+}
+
+
+
+ .btnCarrito{
+      
+      
+      background-color: rgb(3, 3, 3);
+      color:aliceblue;
+      text-align: center;
+     
+      border-radius: 2.5rem;
+      padding: 5px 5px;
+      font-size: 15px;
+      margin-top: 22px;
+      font-family: v.$fuente;
+
+      
+      &:hover{
+            color:rgba(255, 196, 0, 0.993);
+            background-color: rgb(59, 41, 1);
+            }
+   }
+
+
+   //Clases para la venta Flotante que muestra el carrito 
+   /* Fondo oscuro transparente */
+   .overlay {
+   position: fixed;        /* se mantiene fijo sobre toda la pantalla */
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgb(20, 20, 20,0.8); /* fondo semitransparente */
+   display: none;          /* inicialmente oculto */
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;          /* arriba de todo sobre toda la pantalla*/
+   }
+
+   /* Caja  centrada */
+   .carrito-contenido {
+      
+   background: rgb(19, 18, 18);
+   color:aliceblue;
+   padding: 20px;
+   border-radius: 15px;
+   width: 500px;
+   max-height: 100vh;
+   overflow-y: auto;        /* scroll si hay muchos productos */
+   box-shadow: 0 0 10px rgba(247, 245, 245, 0.5);
+   font-family: v.$fuente;
+   font-weight: 100;
+
+    h2{
+      margin-top: 15px;
+      font-weight: 100;
+      font-weight: lighter;
+    }
+
+    p{
+      margin: 10px 0 5px 0;
+    }
+    
+   
+  
+   }
+
+  
+
