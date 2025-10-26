@@ -1,8 +1,8 @@
 let carrito=[]
 
 
-
 // FUNCIONES PRINCIPALES DEL  DOM 
+
 function agregarCarrito(id){
  for (let producto of productos){
 
@@ -27,6 +27,7 @@ function agregarCarrito(id){
 
 
 function mostrarCarrito(){
+
      let lista = document.getElementById("listaCarrito");
 
      lista.innerHTML = ""; // limpio antes de cargar
@@ -41,19 +42,20 @@ function mostrarCarrito(){
             return acumulador+producto.subtotal
           },0)
 
-          totalcarrito= totalcarrito
 
         carrito.forEach((p, i) => {
       
          lista.innerHTML += `
-         <div class="item-carrito">
-          <p><strong>${i + 1}. ${p.nombre}. ID: ${p.id}</strong></p>
-          <p>Precio: $${formatoMiles(p.precio)} — Cantidad: ${p.cantidad} — Subtotal: ${formatoMiles(p.subtotal)}</p>
-          <hr>
-         </div>
-          `;
-         });
 
+         <div class="item-carrito">
+           <p><strong>${i + 1}. ${p.nombre}. ID: ${p.id}</strong></p>
+           <p>Precio: $${formatoMiles(p.precio)} — Cantidad: ${p.cantidad} — Subtotal: $${formatoMiles(p.subtotal)}</p>
+           <hr>
+         </div>
+
+          `;
+
+         });
 
        lista.innerHTML += `<h2>Total Carrito $${formatoMiles(totalcarrito)}</h2>`
      }
@@ -84,6 +86,32 @@ function eliminarProductocarrito(){
 
     mostrarCarrito()
 }
+}
+
+
+function confirmarCarrito(){
+
+
+
+   if (carrito.length === 0) {
+
+      lista.innerHTML = "<p>El carrito está vacío</p>";
+
+    } else {
+              let totalcarrito= carrito.reduce((acumulador,producto)=>{
+               return acumulador+producto.subtotal
+               },0)
+
+              let confirmacion=confirm(`Desea Confirmar el Carrito? Total Carrito: $${formatoMiles(totalcarrito)}`)
+
+
+              if(confirmacion){
+               alert("Carrito Procesado Correctamente. Gracias por su compra")
+                 carrito=[]
+                 mostrarCarrito()
+                 console.log(carrito)
+               }
+            }   
 }
 
 
@@ -152,4 +180,6 @@ function formatoMiles(numero) {
   
   document.getElementById("btneliminarProd").addEventListener("click", () => {eliminarProductocarrito() });
 
+  //4) CONFIRMAR CARRITO 
 
+  document.getElementById("btnConfirmar").addEventListener("click", () => {confirmarCarrito() });

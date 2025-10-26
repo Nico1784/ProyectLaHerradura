@@ -14,7 +14,7 @@ body {
 }
 
 .contenedorMainProductos .contenedor-tarjetas .producto1, .contenedorMainProductos .contenedor-tarjetas .producto2, .contenedorMainProductos .contenedor-tarjetas .producto3, .contenedorMainProductos .contenedor-tarjetas .producto4, .contenedorMainProductos .contenedor-tarjetas .producto5, .contenedorMainProductos .contenedor-tarjetas .producto6, .contenedorMainProductos .contenedor-tarjetas .producto7, .contenedorMainProductos .contenedor-tarjetas .producto8, .contenedorMainProductos .contenedor-tarjetas .producto9, .contenedorMainProductos .contenedor-tarjetas .producto10, .contenedorMainProductos .contenedor-tarjetas .producto11, .contenedorMainProductos .contenedor-tarjetas .producto12 {
-  height: 50vh;
+  height: 60vh;
   width: 13vw;
   display: flex;
   flex-direction: column;
