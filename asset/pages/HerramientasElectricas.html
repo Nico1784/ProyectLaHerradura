@@ -14,7 +14,9 @@
 
     <title>Ferretería La Herradura</title>
 </head>
-<body>
+
+
+<body data-rubro="HerramientaElectrica">
 
     <header class="contenedor-header">
        
@@ -23,7 +25,7 @@
              <p>Ferretería La Herradura</p>
         </div>
 
-        <h1>Herramientas Electricas</h1>
+        <h1 id="herraElectricas">Herramientas Electricas</h1>
         <!-- <button class="btnCarrito" id="btnCarrito">Carrito</button> -->
         <button class="btnCarrito" id="btnCarrito">🛒Carrito</button>
         <!-- Div oculto que actuará como la alerta -->
@@ -37,7 +39,7 @@
           </div>
         </div>
         <nav> 
-                           <a href="../../index.html">Inicio</a>
+              <a href="../../index.html">Inicio</a>
               <a href="Catalogo.html">Catalogo</a>
               <a href="Contacto.html">Contacto</a>
               <a href="Nosotros.html">Nosotros</a>
@@ -48,84 +50,9 @@
 
     <main class="contenedorMainProductos">
                
-        <section class="contenedor-tarjetas">
+        <section class="contenedor-tarjetas" id="contenedorProductos">
 
-            <div class="tarjeta producto1" data-id="100">
-                <p class="titulo-tarjeta">Amoladora 115mm </p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/amoladora115.png" alt="prod1">
-                <p class="tarjeta-descripcion">Amoladora angular 115mm Black Decker, potencia y precisión para cortes y desbastes.</p>
-                <button class="btnAgregar" >Agregar Carrito</button >
-            </div>
-            <div class="tarjeta producto2" data-id="200">
-                <p class="titulo-tarjeta">ATornillador </p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/AtornilaldorInalambrico.png" alt="prod2">
-                <p class="tarjeta-descripcion">Atornillador inalámbrico DowenPaggio, compacto y potente para trabajos rápidos y precisos.</p>
-                <button class="btnAgregar" >Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto3" data-id="300">
-                <p class="titulo-tarjeta" id="300">Caladora </p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/Caladora.png" alt="amoladora">
-                <p class="tarjeta-descripcion">Caladora Black Decker, versátil y precisa, ideal para cortes curvos y rectos perfectos.</p>
-                <button class="btnAgregar">Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto4"data-id="400">
-                <p class="titulo-tarjeta" >Roto Kit </p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/RotoKit.png" alt="amoladora">
-                <p class="tarjeta-descripcion">Kit rotopercutor Black Decker con accesorios, potencia y versatilidad para todo proyecto</p>
-                <button class="btnAgregar" >Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto5" data-id="500">
-                <p class="titulo-tarjeta" >Cargador Portátil</p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/CargadorPortatil.png" alt="amoladora">
-                <p class="tarjeta-descripcion">Cargador portátil DowenPaggio para baterías de autos, seguro y eficiente en emergencias</p>
-                 <button class="btnAgregar" >Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto6"data-id="600">
-                <p class="titulo-tarjeta" >Taladro Dewalt</p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/TaladroDewalt.png" alt="amoladora">
-                <p class="tarjeta-descripcion">Taladro Dewalt, máxima potencia y resistencia para perforaciones exigentes.</p>
-                <button class="btnAgregar">Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto7" data-id="700">
-                <p class="titulo-tarjeta" >Cortacerámico </p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/Cortaceramico.png" alt="amoladora">
-                <p class="tarjeta-descripcion">Cortacerámico Black Decker, preciso y resistente para cortes limpios en todo tipo de cerámicas.</p>
-                <button class="btnAgregar">Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto8" data-id="800">
-                <p class="titulo-tarjeta">Hidrolavadora</p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/hidro.png" alt="amoladora">
-                <p class="tarjeta-descripcion"> Hidrolavadora Black Decker, potente y práctica para una limpieza profunda y eficiente.</p>
-                <button class="btnAgregar" >Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto9"data-id="900">
-                <p class="titulo-tarjeta" >Circular</p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/circular.png" alt="amoladora">
-                <p class="tarjeta-descripcion">Circular marca BOSCH, potente y fácil de usar, ideal para trabajos domésticos y profesionales.</p>
-                <button class="btnAgregar">Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto10"data-id="1000">
-                <p class="titulo-tarjeta" >Taladro 13 mm</p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/Talador13mmsf.png" alt="amoladora">
-                <p class="tarjeta-descripcion">Taladro 13 mm Black Decker, compacto, potente y versátil para perforar con máxima precisión</p>
-                <button class="btnAgregar" >Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto11" data-id="1100">
-                <p class="titulo-tarjeta" >Mezcladora Cemento</p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/Trompo.png" alt="Trompo">
-                <p class="tarjeta-descripcion">Mezcladora cemento Still, robusta y eficiente, mezcla rápida para construcciones profesionales y duraderas.</p>
-                <button class="btnAgregar">Agregar Carrito</button >
-            </div>
-             <div class="tarjeta producto12" data-id="1200">
-                <p class="titulo-tarjeta" >Rotopercutor 2000 wts</p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/Rotopercutor (2).png" alt="Trompo-reforzado">
-                <p class="tarjeta-descripcion">Rotopercutor Black Decker, máxima potencia y durabilidad para perforar materiales duros fácilmente</p>
-                <button class="btnAgregar">Agregar Carrito</button >
-            </div>
-
-           
         </section>
-       
 
     </main>
 

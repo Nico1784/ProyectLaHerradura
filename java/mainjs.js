@@ -146,12 +146,65 @@ function formatoMiles(numero) {
   return numero.toLocaleString("es-AR");
 }
 
+function cargarProd(){
 
+let rubro= document.body.dataset.rubro // Identifico la Pagina 
+
+if (rubro==="HerramientaElectrica"){    
+
+  let productosfiltrados= productos.filter((prod=>prod.rubro===rubro))
+
+  let contenedorProductos= document.getElementById("contenedorProductos")
+
+  let inner=""
+
+  productosfiltrados.forEach((prod,i)=>{
+
+   inner += ` <div class="tarjeta producto${i+1}" data-id="${prod.id}">
+                <p class="titulo-tarjeta">${prod.nombre}</p>
+                <img class="img-tarjeta" src="../img/Herramientas Electricas/${prod.img}" alt="${prod.nombre}">
+                <p class="tarjeta-descripcion">${prod.descrip}</p>
+                <button class="btnAgregar" >Agregar Carrito</button >
+            </div>`
+
+ })
+
+   contenedorProductos.innerHTML=inner
+
+
+}else if(rubro==="HerramientaManual"){
+
+
+  let productosfiltrados= productos.filter((prod=>prod.rubro===rubro))
+
+  let contenedorProductos= document.getElementById("contenedorProductos")
+
+  let inner=""
+
+  productosfiltrados.forEach((prod,i)=>{
+
+   inner += ` <div class="tarjeta producto${i+1}" data-id="${prod.id}">
+                <p class="titulo-tarjeta">${prod.nombre}</p>
+                <img class="img-tarjeta" src="../img/Herramientas Manuales/${prod.img}" alt="${prod.nombre}">
+                <p class="tarjeta-descripcion">${prod.descrip}</p>
+                <button class="btnAgregar" >Agregar Carrito</button >
+            </div>`
+  })
+
+  contenedorProductos.innerHTML=inner
+
+}
+
+}
 
 
 
 
 //EVENTOS DOM 
+
+  //0) CARGAR LOS PRODUCTOS 
+
+   cargarProd()
 
   //1) HACER CLICK PARA AGREGAR CARRITO
     const botones = document.querySelectorAll('.btnAgregar');
@@ -183,3 +236,8 @@ function formatoMiles(numero) {
   //4) CONFIRMAR CARRITO 
 
   document.getElementById("btnConfirmar").addEventListener("click", () => {confirmarCarrito() });
+
+
+let rubro= document.body.dataset.rubro
+
+console.log(rubro)

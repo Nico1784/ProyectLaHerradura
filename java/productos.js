@@ -1,116 +1,200 @@
 let productos=[
-    {  id:      100,
+    {  id:     100,
        nombre: "Amoladora 115mm",
        precio: 50000	,
+       rubro: "HerramientaElectrica",
+       descrip: "Amoladora angular 115mm Black Decker, potencia yprecisión para cortes y desbastes",
+       img: "amoladora115.png",
        stock:  10	
     } ,
-    {  id:200,
+    {  id:     200,
        nombre: "ATornillador",
        precio: 30000	,
+       rubro:  "HerramientaElectrica",
+       descrip:"Atornillador inalámbrico DowenPaggio, compacto y potente para trabajos rápidos y precisos.",
+       img:    "AtornilaldorInalambrico.png",
        stock:  5	
     } , 
     {  id:	   300,
        nombre: "Caladora",
        precio: 40000	,
+       rubro: "HerramientaElectrica",
+       descrip: "Caladora Black Decker, versátil y precisa, ideal para cortes curvos y rectos perfectos.",
+       img:   "Caladora.png",
        stock:  8	
     } , 
    
      {  id:	   400,
        nombre: "Roto Kit",
        precio: 50000	,
+       rubro: "HerramientaElectrica",
+       descrip:"Kit rotopercutor Black Decker con accesorios, potencia y versatilidad para todo proyecto",
+       img:"RotoKit.png",
        stock:  10	
     },   
      {  id:	   500,
        nombre: "Cargador Portátil",
        precio: 90000	,
+       rubro: "HerramientaElectrica",
+       descrip:"Cargador portátil DowenPaggio para baterías de autos, seguro y eficiente en emergencias",
+       img:"CargadorPortatil.png",
        stock:  10	
     },   
      {  id:	   600,
        nombre: "Taladro Dewalt",
        precio: 45000	,
+       rubro: "HerramientaElectrica",
+       descrip:"Taladro Dewalt, máxima potencia y resistencia para perforaciones exigentes",
+       img:"TaladroDewalt.png",
        stock:  10	
     },   
      {  id:	   700,
        nombre: "Cortacerámico",
        precio: 50000	,
+       rubro: "HerramientaElectrica",
+       descrip:"Cortacerámico Black Decker, preciso y resistente para cortes limpios en todo tipo de cerámicas",
+       img:"Cortaceramico.png",
+       
        stock:  10	
     },   
      {  id:	   800,
        nombre: "Hidrolavadora",
        precio: 50000	,
+       rubro: "HerramientaElectrica",
+       descrip:"Hidrolavadora Black Decker, potente y práctica para una limpieza profunda y eficiente",
+       img:"hidro.png",
        stock:  10	
     },   
      {  id:	   900,
        nombre: "Circular",
        precio: 50000	,
+       rubro: "HerramientaElectrica",
+       descrip:"Circular marca BOSCH, potente y fácil de usar, ideal para trabajos domésticos y profesionales.",
+       img:"circular.png",
        stock:  10	
     },   
      {  id:	   1000,
        nombre: "Taladro 13 mm",
        precio: 50000	,
+       rubro: "HerramientaElectrica",
+       descrip:"Taladro 13 mm Black Decker, compacto, potente y versátil para perforar con máxima precisión",
+       img:"Talador13mmsf.png",
        stock:  10	
     },   
-     {  id:	   1100,
+     {  id:	    1100,
        nombre: "Mezcladora Cemento",
-       precio: 150000	,
+       precio:  150000,
+       rubro:  "HerramientaElectrica",
+       descrip:"Mezcladora cemento Still, robusta y eficiente, mezcla rápida para construcciones profesionales y duraderas.",
+       img:    "Trompo.png",
        stock:  5	
     },
-    {  id:     1200 ,
+    {  id:     1200,
        nombre: "Rotopercutor 2000 wts",
        precio: 150000,
-       stock: 5 },
+       rubro:  "HerramientaElectrica",
+       descrip:"Rotopercutor Black Decker, máxima potencia y durabilidad para perforar materiales duros fácilmente",
+       img:    "Rotopercutor (2).png",
+       stock:  5
+     },
+
     {  id:  	1300,
        nombre: "Carro Porta herramienta",
        precio: 35000,
+       rubro:"HerramientaManual",
+       descrip:"Carro portaherramientas resistente, práctico y móvil para organizartus herramientas.",
+       img:"CarroPortaherramientas.png",
        stock:  20	
     },   
      {  id:	   1400,
        nombre: "Caja Herramientas",
        precio: 20000	,
+       rubro:"HerramientaManual",
+       descrip:"Caja herramientas resistente, amplia y segura para almacenar y transportar tus herramientas esenciales.",
+       img: "CajaHerramientas.png",
        stock:  50	
     },   
      {  id:	   1500,
        nombre: "Kit Alto Voltaje",
        precio: 25000,
+       rubro:"HerramientaManual",
+       descrip:"Juego de 5 destornilladores, variados, duraderos y ergonómicos para trabajos precisos.",
+       img:"Destornilladores.png",
        stock:  20	
     },   
      {  id:	   1600,
        nombre: "Juego Tubos Bahco",
        precio: 80000	,
+       rubro:"HerramientaManual",
+       descrip:"Kit herramientas alto voltaje, seguro y completo para electricistas profesionales y trabajos exigentes",
+       img:"juegoaltovoltaje.png",
        stock:  10	
     },   
      {  id:	   1700,
        nombre: "Kit Básico con bolso",
        precio: 30000	,
+       rubro:  "HerramientaManual",
+       descrip:"Juego tubos Bahco, calidad excelente, resistente y duradero para trabajos profesionales exigentes",
+       img:    "Juegobhaco.png",
        stock:  15	
     },   
      {  id:	   1800,
        nombre: "Kit Destornilladores",
        precio: 70000	,
+       rubro:"HerramientaManual",
+       descrip:"Kit básico herramientas domésticas, completo y práctico para reparaciones fáciles en el hogar",
+       img:"Juegoconbolso.png",
        stock:  10	
     },   
      {  id:	   1900,
        nombre: "Juego Lustofoof",
-       precio: 180000	,
+       precio: 180000,
+       rubro:"HerramientaManual",
+       descrip:"Kit destornilladores con blister, práctico, completo y resistente para trabajos precisos y rápidos.",
+       img:"JuegoDestornilladorconsoporte.png",
        stock:  5	
     },
     {  id:     2000 ,
        nombre: "Juego Talabartería",
        precio: 15000,
-       stock: 15 },
+       rubro:"HerramientaManual",
+       descrip:"Juego llaves y tubos Lustoff, alta calidad, durabilidad y precisión para todo trabajo.",
+       img:"juegoLustoff.png",
+       stock: 15
+       },
      {  id:     2100 ,
        nombre: "Juego Martillos y Tubos",
        precio: 150000,
-       stock: 8 },  
+       rubro:"HerramientaManual",
+       descrip:"Juego talabartería completo, resistente y versátil, ideal para trabajos artesanales y profesionales.",
+       img:"juegotalabarteleria.png",
+       stock: 8
+       },  
      {  id:     2200 ,
        nombre: "SacaBollos",
        precio: 180000,
-       stock: 10 }, 
-      {  id:     2300 ,
+       rubro:"HerramientaManual",
+       descrip:"Juego martillos y tubos económico, funcional y resistente para tareas básicas y domésticas.",
+       img:"kitmartillosytubos.png",
+       stock: 10
+       }, 
+      { id:     2300 ,
        nombre: "Set Básico",
        precio: 90000,
-       stock: 10 }   
+       rubro:"HerramientaManual",
+       descrip:"Juego sacabollos profesional, preciso y duradero para reparar abolladuras con excelente acabado.",
+       img:"sacabollos.png",
+       stock: 10
+      }
+       
 ]
+
+
+
+//
+
+
+
 
 
 
