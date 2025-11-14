@@ -68,9 +68,9 @@ let productos=[
      {  id:	   900,
        nombre: "Circular",
        precio: 50000	,
-       rubro: "HerramientaElectrica",
+       rubro:  "HerramientaElectrica",
        descrip:"Circular marca BOSCH, potente y fácil de usar, ideal para trabajos domésticos y profesionales.",
-       img:"circular.png",
+       img:    "circular.png",
        stock:  10	
     },   
      {  id:	   1000,
@@ -78,7 +78,7 @@ let productos=[
        precio: 50000	,
        rubro: "HerramientaElectrica",
        descrip:"Taladro 13 mm Black Decker, compacto, potente y versátil para perforar con máxima precisión",
-       img:"Talador13mmsf.png",
+       img:   "Talador13mmsf.png",
        stock:  10	
     },   
      {  id:	    1100,

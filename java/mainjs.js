@@ -1,8 +1,72 @@
-let carrito=[]
+
+let carrito = JSON.parse(localStorage.getItem("carrito"))
+
+if(carrito==null){
+  carrito=[]
+  localStorage.setItem("carrito",JSON.stringify(carrito))
+}
+
+
 
 
 // FUNCIONES PRINCIPALES DEL  DOM 
 
+function cargarProd(){
+
+let rubro= document.body.dataset.rubro // Identifico la Pagina 
+
+if (rubro==="HerramientaElectrica"){    
+
+  let productosfiltrados= productos.filter((prod=>prod.rubro===rubro))
+
+  let contenedorProductos= document.getElementById("contenedorProductos")
+
+  let inner=""
+
+  productosfiltrados.forEach((prod,i)=>{
+
+   inner += ` <div class="tarjeta producto${i+1}" data-id="${prod.id}">
+                <p class="titulo-tarjeta">${prod.nombre}</p>
+                <img class="img-tarjeta" src="../img/Herramientas Electricas/${prod.img}" alt="${prod.nombre}">
+                <p class="tarjeta-descripcion">${prod.descrip}</p>
+                <p class="tarjeta-descripcion">$${formatoMiles(prod.precio)}</p>
+                <button class="btnAgregar" >Agregar Carrito</button >
+            </div>`
+
+ })
+
+   contenedorProductos.innerHTML=inner
+
+
+}else if(rubro==="HerramientaManual"){
+
+
+  let productosfiltrados= productos.filter((prod=>prod.rubro===rubro))
+
+  let contenedorProductos= document.getElementById("contenedorProductos")
+
+  let inner=""
+
+  productosfiltrados.forEach((prod,i)=>{
+
+   inner += ` <div class="tarjeta producto${i+1}" data-id="${prod.id}">
+                <p class="titulo-tarjeta">${prod.nombre}</p>
+                <img class="img-tarjeta" src="../img/Herramientas Manuales/${prod.img}" alt="${prod.nombre}">
+                <p class="tarjeta-descripcion">${prod.descrip}</p>
+                <p class="tarjeta-descripcion">$${formatoMiles(prod.precio)}</p>
+                <button class="btnAgregar" >Agregar Carrito</button >
+            </div>`
+  })
+
+  contenedorProductos.innerHTML=inner
+
+}
+
+}
+
+
+
+//FUNCIONES CARRITO
 function agregarCarrito(id){
  for (let producto of productos){
 
@@ -15,6 +79,9 @@ function agregarCarrito(id){
          let subtotal=producto.precio*cantidad
 
          carrito.push({id:producto.id, nombre:producto.nombre, precio:producto.precio, cantidad:cantidad,subtotal:subtotal })
+         
+         localStorage.setItem("carrito",JSON.stringify(carrito))
+
 
          alert("Ok Producto Agregado")
       
@@ -76,16 +143,78 @@ function eliminarProductocarrito(){
 
   let id= parseInt(prompt("Ingresar Número de ID del producto que desea eliminar"))
 
+ 
+
   if( validaID(carrito,id) && validaInt(id)) {
 
     carrito=carrito.filter((producto)=>(producto.id!==id))
    
-    console.log(carrito)
+   // onsole.log(carrito)
         
     alert("Producto Eliminado Correctamente")
 
     mostrarCarrito()
 }
+}
+
+function restarCantidad(){
+
+
+  let id=parseInt(prompt("Ingrese Id Del Producto"))
+
+  let cantidad=parseInt(prompt("Ingrese Cantidad A eliminar"))
+
+
+let producto= carrito.find(p=> p.id===id)
+
+if(!producto){
+  alert("No existe en el Carrito")
+}
+
+if (!validaInt(cantidad)){
+  alert("Caracter No Válido")
+}
+
+//Resto Cantidad
+producto.cantidad-=cantidad
+//Si llega a 0 , eliminar producto
+
+if(producto.cantidad<=0){
+
+  carrito=carrito.filter(p=>p.id!==id)
+
+  localStorage.setItem("carrito", JSON.stringify(carrito))
+
+}
+
+mostrarCarrito()
+
+
+
+
+
+}
+
+function vaciarCarrito(){
+
+   let lista = document.getElementById("listaCarrito");
+
+     lista.innerHTML = ""; // limpio antes de cargar
+
+     if (carrito.length === 0) {
+
+      lista.innerHTML = "<p>El carrito está vacío</p>";
+    }
+
+    let confirmacion=confirm("Desea eliminar todos los productos?")
+
+    if(confirmacion){
+      carrito=[]
+      localStorage.setItem("carrito", JSON.stringify(carrito))
+    }
+
+    mostrarCarrito()
+  
 }
 
 
@@ -108,8 +237,10 @@ function confirmarCarrito(){
               if(confirmacion){
                alert("Carrito Procesado Correctamente. Gracias por su compra")
                  carrito=[]
+                 localStorage.setItem("carrito",JSON.stringify(carrito))
+                 
                  mostrarCarrito()
-                 console.log(carrito)
+                 //console.log(carrito)
                }
             }   
 }
@@ -142,61 +273,13 @@ function validaID(arreglo,id){
 
 }
 
+
+
+//FUNCIONES AUXILIARES 
+
 function formatoMiles(numero) {
   return numero.toLocaleString("es-AR");
 }
-
-function cargarProd(){
-
-let rubro= document.body.dataset.rubro // Identifico la Pagina 
-
-if (rubro==="HerramientaElectrica"){    
-
-  let productosfiltrados= productos.filter((prod=>prod.rubro===rubro))
-
-  let contenedorProductos= document.getElementById("contenedorProductos")
-
-  let inner=""
-
-  productosfiltrados.forEach((prod,i)=>{
-
-   inner += ` <div class="tarjeta producto${i+1}" data-id="${prod.id}">
-                <p class="titulo-tarjeta">${prod.nombre}</p>
-                <img class="img-tarjeta" src="../img/Herramientas Electricas/${prod.img}" alt="${prod.nombre}">
-                <p class="tarjeta-descripcion">${prod.descrip}</p>
-                <button class="btnAgregar" >Agregar Carrito</button >
-            </div>`
-
- })
-
-   contenedorProductos.innerHTML=inner
-
-
-}else if(rubro==="HerramientaManual"){
-
-
-  let productosfiltrados= productos.filter((prod=>prod.rubro===rubro))
-
-  let contenedorProductos= document.getElementById("contenedorProductos")
-
-  let inner=""
-
-  productosfiltrados.forEach((prod,i)=>{
-
-   inner += ` <div class="tarjeta producto${i+1}" data-id="${prod.id}">
-                <p class="titulo-tarjeta">${prod.nombre}</p>
-                <img class="img-tarjeta" src="../img/Herramientas Manuales/${prod.img}" alt="${prod.nombre}">
-                <p class="tarjeta-descripcion">${prod.descrip}</p>
-                <button class="btnAgregar" >Agregar Carrito</button >
-            </div>`
-  })
-
-  contenedorProductos.innerHTML=inner
-
-}
-
-}
-
 
 
 
@@ -237,7 +320,6 @@ if (rubro==="HerramientaElectrica"){
 
   document.getElementById("btnConfirmar").addEventListener("click", () => {confirmarCarrito() });
 
+  document.getElementById("btnVaciar").addEventListener("click", () => {vaciarCarrito() });
 
-let rubro= document.body.dataset.rubro
-
-console.log(rubro)
+  document.getElementById("btnRestar").addEventListener("click", () => {restarCantidad() });
