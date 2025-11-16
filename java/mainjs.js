@@ -67,43 +67,59 @@ if (rubro==="HerramientaElectrica"){
 
 
 //FUNCIONES CARRITO
-function agregarCarrito(id){
- for (let producto of productos){
 
-    if(producto.id===id){
+async function agregarCarrito(id) {
 
-      let cantidad= parseInt(prompt("Ingrese Cantidad"))
+  for (let producto of productos) {
 
-      if(validaInt(cantidad)){
+    if (producto.id === id) {
 
-         let subtotal=producto.precio*cantidad
+      let cantidad = await promptSweet(`Ingresar Cantidad ${producto.nombre}`);
 
-         carrito.push({id:producto.id, nombre:producto.nombre, precio:producto.precio, cantidad:cantidad,subtotal:subtotal })
-         
-         localStorage.setItem("carrito",JSON.stringify(carrito))
+      // Si canceló, cortar acá
+      if (cantidad === false) {
+        alertaWarning("Operación Cancelada");
+        return;
+      }
 
+      // Ahora sí convertir
+      cantidad = parseInt(cantidad);
 
-         alert("Ok Producto Agregado")
-      
-        }
+      if (validaInt(cantidad)) {
+
+        let subtotal = producto.precio * cantidad;
+
+         carrito.push({
+          id: producto.id,
+          nombre: producto.nombre,
+          precio: producto.precio,
+          cantidad: cantidad,
+          subtotal: subtotal
+        });
+
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+
+        alertaExitosa(`Se agregó:\n${producto.nombre} — Cantidad: ${cantidad}`);
+      }
     }
-   
- }
-
+  }
 }
+
 
 
 function mostrarCarrito(){
 
-     let lista = document.getElementById("listaCarrito");
-
-     lista.innerHTML = ""; // limpio antes de cargar
-
+     
      if (carrito.length === 0) {
 
-      lista.innerHTML = "<p>El carrito está vacío</p>";
+     alerta("El Carrito esta Vacío")
+     document.getElementById("carritoOverlay").style.display = "none"
 
     } else {
+      
+       let lista = document.getElementById("listaCarrito");
+
+       lista.innerHTML = ""; // limpio antes de cargar
 
        let totalcarrito= carrito.reduce((acumulador,producto)=>{
             return acumulador+producto.subtotal
@@ -119,42 +135,51 @@ function mostrarCarrito(){
            <p>Precio: $${formatoMiles(p.precio)} — Cantidad: ${p.cantidad} — Subtotal: $${formatoMiles(p.subtotal)}</p>
            <hr>
          </div>
+        
 
           `;
 
          });
 
-       lista.innerHTML += `<h2>Total Carrito $${formatoMiles(totalcarrito)}</h2>`
-     }
+          lista.innerHTML += `<h2>Total Carrito $${formatoMiles(totalcarrito)}</h2>`
 
-   document.getElementById("carritoOverlay").style.display = "flex";   
-    
- 
-   // Cerrar el carrito
-   document.getElementById("cerrarCarrito").addEventListener("click", () => {
+          document.getElementById("carritoOverlay").style.display = "flex";   
+          // Cerrar el carrito
+          document.getElementById("cerrarCarrito").addEventListener("click", () => {
 
-   document.getElementById("carritoOverlay").style.display = "none";  // desactivo overlay
+          document.getElementById("carritoOverlay").style.display = "none";  // desactivo overlay
        });
 
+
+       
+     }
+
+  
 }
 
 
-function eliminarProductocarrito(){
+async function eliminarProductocarrito(){
 
-  let id= parseInt(prompt("Ingresar Número de ID del producto que desea eliminar"))
-
+  let id =  await promptSweet("Ingresar Número de ID del producto que desea eliminar")
+  
  
+  if(validaInt(id)){
 
-  if( validaID(carrito,id) && validaInt(id)) {
+    alertaWarning("Caracter no Válido")
+  }
 
-    carrito=carrito.filter((producto)=>(producto.id!==id))
+   if(!id){
    
-   // onsole.log(carrito)
-        
-    alert("Producto Eliminado Correctamente")
+    alertaWarning("Producto No Encontrado")
 
-    mostrarCarrito()
-}
+  }
+
+   carrito=carrito.filter((producto)=>(producto.id!==id))
+             
+   alerta("Producto Eliminado Correctamente")
+
+   mostrarCarrito()
+
 }
 
 function restarCantidad(){
@@ -195,7 +220,7 @@ mostrarCarrito()
 
 }
 
-function vaciarCarrito(){
+async function vaciarCarrito(){
 
    let lista = document.getElementById("listaCarrito");
 
@@ -206,19 +231,24 @@ function vaciarCarrito(){
       lista.innerHTML = "<p>El carrito está vacío</p>";
     }
 
-    let confirmacion=confirm("Desea eliminar todos los productos?")
+    let confirmacion= await confirmSweet("Desea eliminar todos los productos?")
 
     if(confirmacion){
       carrito=[]
       localStorage.setItem("carrito", JSON.stringify(carrito))
+
+      alertaExitosa("Todos Productos Fueron eliminados")
+      document.getElementById("carritoOverlay").style.display = "none"
+    }else{
+      mostrarCarrito()
     }
 
-    mostrarCarrito()
+      
   
 }
 
 
-function confirmarCarrito(){
+async function confirmarCarrito(){
 
 
 
@@ -230,16 +260,21 @@ function confirmarCarrito(){
               let totalcarrito= carrito.reduce((acumulador,producto)=>{
                return acumulador+producto.subtotal
                },0)
+              
+               let confirmacion= await confirmSweet(`Desea Adquirir el Carrito?\nTotal Carrito: $${formatoMiles(totalcarrito)}`)
 
-              let confirmacion=confirm(`Desea Confirmar el Carrito? Total Carrito: $${formatoMiles(totalcarrito)}`)
+             
 
 
               if(confirmacion){
-               alert("Carrito Procesado Correctamente. Gracias por su compra")
+               
                  carrito=[]
                  localStorage.setItem("carrito",JSON.stringify(carrito))
                  
-                 mostrarCarrito()
+                 document.getElementById("carritoOverlay").style.display = "none"
+                 alerta("Carrito Procesado Correctamente. Gracias por su compra")
+                 
+                
                  //console.log(carrito)
                }
             }   
@@ -252,11 +287,14 @@ function confirmarCarrito(){
 function validaInt(variable){
 
      if(!isNaN(variable) && Number.isInteger(variable)){
+
        return true
-     }else  {
-       alert("Caracter Ingresado no válido")
-      }
+
+     }else {
+      return false
       
+      
+     }  
      
 } 
 
@@ -267,8 +305,11 @@ function validaID(arreglo,id){
   
   if (rdo){
     return true
-  }else {
-    alert("Prducto no encontrado")
+  }else if (rdo===false){
+    alertaWarning("Op. Cancelada")
+  }else{
+    alerta("Prducto no encontrado")
+
   }
 
 }
@@ -280,6 +321,83 @@ function validaID(arreglo,id){
 function formatoMiles(numero) {
   return numero.toLocaleString("es-AR");
 }
+
+
+
+
+
+
+// FUNCIONES CREACION ALERTAS INPUT CONFIRM
+
+
+function alertaExitosa(texto){
+  Swal.fire({
+  title: texto,
+  icon: "success",
+  draggable: true,
+  theme: 'dark'
+});
+
+}
+
+function alerta(texto){
+   Swal.fire({
+     title: texto,
+     draggable: true,
+     theme: 'dark'
+});
+}
+
+function alertaWarning(texto){
+  Swal.fire({
+  title: texto,
+  icon: "warning",
+  draggable: true,
+  theme: 'dark'
+});
+
+
+}
+
+async function promptSweet(mensaje) {
+
+   const result = await Swal.fire({
+    title: mensaje,
+    input: "text",
+    theme:"dark",
+    inputPlaceholder: "",
+    showCancelButton: true,
+    confirmButtonText: "Aceptar",
+    cancelButtonText: "Cancelar"
+  });
+
+  if (result.isConfirmed) {
+    return result.value;   // lo que escribió el usuario
+  } else {
+     return false;           // si canceló
+  }
+}
+
+async function confirmSweet(mensaje) {
+
+   const result = await Swal.fire({
+    title: mensaje,
+    theme:"dark",
+    showCancelButton: true,
+    confirmButtonText: "Aceptar",
+    cancelButtonText: "Cancelar"
+  });
+  
+ 
+  if (result.isConfirmed) {
+ 
+    return true;  
+  } else {
+    alertaWarning("Operacion Cancelada");           // si canceló
+  }
+}
+
+
 
 
 
@@ -323,3 +441,6 @@ function formatoMiles(numero) {
   document.getElementById("btnVaciar").addEventListener("click", () => {vaciarCarrito() });
 
   document.getElementById("btnRestar").addEventListener("click", () => {restarCantidad() });
+
+
+
