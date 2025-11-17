@@ -140,4 +140,39 @@ body{
     }
 }
 
+//SWEET ALERT 
 
+.mi-popup {
+  background-color: #222;
+  color: white;
+  border-radius: 20px;
+}
+
+.mi-titulo {
+  font-size: 25px;
+  font-weight: 300;
+  font-family: $fuente;
+  color: #fdfdfd;
+}
+
+.mi-texto {
+  font-size: 35px;
+  font-family: $fuente;
+}
+
+.mi-boton {
+  background-color: #04722e !important;
+  color: white !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+}
+
+// .fuente-titulo {
+//   font-family: 'Montserrat', sans-serif;
+//   font-size: 16px;
+// }
+
+// .fuente-texto {
+//   font-family: 'Roboto', sans-serif;
+//   font-size: 18px;
+// }

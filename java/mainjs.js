@@ -6,18 +6,32 @@ if(carrito==null){
   localStorage.setItem("carrito",JSON.stringify(carrito))
 }
 
+let productos=[]
 
 
 
-// FUNCIONES PRINCIPALES DEL  DOM 
 
-function cargarProd(){
+//FUNCIONES PRINCIPALES CONECCION SERVIDOR + CARGAR PRODUCTOS AL HTML 
+
+async function coneccionServidor() {
+    try {
+        let res = await fetch("../../prods.json");
+        let data = await res.json();
+        productos = data;
+        cargarProd();
+    } catch (error) {
+        alertaWarning("Error conexión Servidor");
+        console.log(error);
+    }
+}
+
+ function cargarProd(){
 
 let rubro= document.body.dataset.rubro // Identifico la Pagina 
 
 if (rubro==="HerramientaElectrica"){    
 
-  let productosfiltrados= productos.filter((prod=>prod.rubro===rubro))
+  let productosfiltrados=  productos.filter((prod => prod.rubro === rubro))
 
   let contenedorProductos= document.getElementById("contenedorProductos")
 
@@ -41,7 +55,7 @@ if (rubro==="HerramientaElectrica"){
 }else if(rubro==="HerramientaManual"){
 
 
-  let productosfiltrados= productos.filter((prod=>prod.rubro===rubro))
+  let productosfiltrados=  productos.filter((prod=>prod.rubro===rubro))
 
   let contenedorProductos= document.getElementById("contenedorProductos")
 
@@ -65,7 +79,6 @@ if (rubro==="HerramientaElectrica"){
 }
 
 
-
 //FUNCIONES CARRITO
 
 async function agregarCarrito(id) {
@@ -76,18 +89,20 @@ async function agregarCarrito(id) {
 
       let cantidad = await promptSweet(`Ingresar Cantidad ${producto.nombre}`);
 
-      // Si canceló, cortar acá
-      if (cantidad === false) {
-        alertaWarning("Operación Cancelada");
-        return;
-      }
+         // Si canceló, cortar acá
+        if (cantidad === false) {
+          alertaWarning("Operación Cancelada");
+          return;
+        }
+          
+        if (!validaInt(cantidad)) {
+           alertaWarning("Caracter No válido");
+           return; //  cortar ejecución
+        }
 
-      // Ahora sí convertir
       cantidad = parseInt(cantidad);
 
-      if (validaInt(cantidad)) {
-
-        let subtotal = producto.precio * cantidad;
+      let subtotal = producto.precio * cantidad;
 
          carrito.push({
           id: producto.id,
@@ -100,7 +115,7 @@ async function agregarCarrito(id) {
         localStorage.setItem("carrito", JSON.stringify(carrito));
 
         alertaExitosa(`Se agregó:\n${producto.nombre} — Cantidad: ${cantidad}`);
-      }
+      
     }
   }
 }
@@ -110,9 +125,10 @@ async function agregarCarrito(id) {
 function mostrarCarrito(){
 
      
-     if (carrito.length === 0) {
+    if (carrito.length === 0) {
 
      alerta("El Carrito esta Vacío")
+
      document.getElementById("carritoOverlay").style.display = "none"
 
     } else {
@@ -135,8 +151,6 @@ function mostrarCarrito(){
            <p>Precio: $${formatoMiles(p.precio)} — Cantidad: ${p.cantidad} — Subtotal: $${formatoMiles(p.subtotal)}</p>
            <hr>
          </div>
-        
-
           `;
 
          });
@@ -158,29 +172,31 @@ function mostrarCarrito(){
 }
 
 
-async function eliminarProductocarrito(){
+async function eliminarProductocarrito() {
 
-  let id =  await promptSweet("Ingresar Número de ID del producto que desea eliminar")
-  
- 
-  if(validaInt(id)){
+  let id = await promptSweet("Ingresar Número de ID del producto que desea eliminar");
 
-    alertaWarning("Caracter no Válido")
+  if (id === false) {
+    alertaWarning("Operación Cancelada");
+    return; //  cortar ejecución
   }
 
-   if(!id){
-   
-    alertaWarning("Producto No Encontrado")
+  id = parseInt(id);
 
+  if (!validaID(carrito, id)) {
+    alertaWarning("Producto No Encontrado");
+    return; //  cortar ejecución
   }
 
-   carrito=carrito.filter((producto)=>(producto.id!==id))
-             
-   alerta("Producto Eliminado Correctamente")
+  carrito = carrito.filter(producto => producto.id !== id);
 
-   mostrarCarrito()
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 
+  alerta("Producto Eliminado Correctamente");
+
+  mostrarCarrito();
 }
+
 
 function restarCantidad(){
 
@@ -282,39 +298,31 @@ async function confirmarCarrito(){
 
 
 
-//SUB FUNCIONES PARA VALIDACIONES 
+///FUNCIONES PARA VALIDACIONES 
 
-function validaInt(variable){
-
-     if(!isNaN(variable) && Number.isInteger(variable)){
-
-       return true
-
-     }else {
-      return false
-      
-      
-     }  
-     
-} 
-
-
-function validaID(arreglo,id){
-
-  let rdo=arreglo.some(prod=>(prod.id===id))
-  
-  if (rdo){
-    return true
-  }else if (rdo===false){
-    alertaWarning("Op. Cancelada")
-  }else{
-    alerta("Prducto no encontrado")
-
-  }
-
+function validaID(arreglo, id) {
+  return arreglo.some(prod => prod.id === id);
 }
 
+function validaInt(valor) {
 
+  //Elimino espacios en blanco
+  valor=valor.trim()
+  
+  //Convierto en numero , si valor= "5", lo convierte en number, caso contrario va a dar Nan
+  const numero = Number(valor);
+
+  // Validamos:
+  // 1) No es string vacío ni solo espacios
+  // 2) No es NaN
+  // 3) Es entero
+ 
+  if(valor !== "" && !isNaN(numero) && Number.isInteger(numero)){
+
+    return true
+  }
+  return false
+}
 
 //FUNCIONES AUXILIARES 
 
@@ -323,19 +331,20 @@ function formatoMiles(numero) {
 }
 
 
-
-
-
-
-// FUNCIONES CREACION ALERTAS INPUT CONFIRM
-
+// FUNCIONES CREACION ALERTAS 
 
 function alertaExitosa(texto){
   Swal.fire({
   title: texto,
   icon: "success",
   draggable: true,
-  theme: 'dark'
+  theme: 'dark',
+  customClass: {
+    popup: 'mi-popup',
+    title: 'mi-titulo',
+    htmlContainer: 'mi-texto',
+    confirmButton: 'mi-boton'
+  }
 });
 
 }
@@ -372,7 +381,8 @@ async function promptSweet(mensaje) {
   });
 
   if (result.isConfirmed) {
-    return result.value;   // lo que escribió el usuario
+    return result.value;
+       // lo que escribió el usuario
   } else {
      return false;           // si canceló
   }
@@ -401,46 +411,42 @@ async function confirmSweet(mensaje) {
 
 
 
-//EVENTOS DOM 
 
-  //0) CARGAR LOS PRODUCTOS 
+////// **EJECUCION DEL CODIGO** //////
 
-   cargarProd()
 
-  //1) HACER CLICK PARA AGREGAR CARRITO
-    const botones = document.querySelectorAll('.btnAgregar');
-    botones.forEach(boton => {
+//0) CONECCION +CARGAR HTML 
+ coneccionServidor()
 
-    boton.addEventListener('click', e => {
-
-    // Busco el contenedor de la tarjeta donde está el botón
-    const tarjeta = e.target.closest('.tarjeta');
-
-    // Leo los atributos del producto
-    const id = parseInt(tarjeta.dataset.id)
-   
-    // Agrego la funcion agregarCarrito
-    agregarCarrito(id)
+//1) HACER CLICK PARA AGREGAR CARRITO
+   document.addEventListener("click", (e) => {
     
-    });
+        if (e.target.classList.contains("btnAgregar")) {
 
+           const tarjeta = e.target.closest(".tarjeta");
+
+           const id = parseInt(tarjeta.dataset.id);
+
+           agregarCarrito(id);
+          }
    });
 
-  //2) MOSTRA EN VENTANA FLOTANTE CARRITO 
+//2) MOSTRA EN VENTANA FLOTANTE CARRITO 
 
-  document.getElementById("btnCarrito").addEventListener("click", () => { mostrarCarrito()});
+ document.getElementById("btnCarrito").addEventListener("click", () => { mostrarCarrito()});
 
-  //3) ELIMINAR PRODUCTO CARRITO
+//3) ELIMINAR PRODUCTO CARRITO
   
   document.getElementById("btneliminarProd").addEventListener("click", () => {eliminarProductocarrito() });
 
-  //4) CONFIRMAR CARRITO 
+//4) CONFIRMAR CARRITO 
 
   document.getElementById("btnConfirmar").addEventListener("click", () => {confirmarCarrito() });
 
   document.getElementById("btnVaciar").addEventListener("click", () => {vaciarCarrito() });
 
   document.getElementById("btnRestar").addEventListener("click", () => {restarCantidad() });
+  
 
 
 

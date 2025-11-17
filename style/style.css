@@ -84,6 +84,31 @@ body {
     scale: 1.2;
   }
 }
+.mi-popup {
+  background-color: #222;
+  color: white;
+  border-radius: 20px;
+}
+
+.mi-titulo {
+  font-size: 25px;
+  font-weight: 300;
+  font-family: "Arvo";
+  color: #fdfdfd;
+}
+
+.mi-texto {
+  font-size: 35px;
+  font-family: "Arvo";
+}
+
+.mi-boton {
+  background-color: #04722e !important;
+  color: white !important;
+  border-radius: 10px !important;
+  padding: 10px 20px !important;
+}
+
 .contenedor-header {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url(../asset/img/fondoHerramientas1.png);
   background-repeat: no-repeat;
@@ -239,7 +264,7 @@ body {
   color: aliceblue;
   padding: 20px;
   border-radius: 15px;
-  width: 500px;
+  width: 600px;
   max-height: 100vh;
   overflow-y: auto; /* scroll si hay muchos productos */
   box-shadow: 0 0 10px rgba(247, 245, 245, 0.5);
