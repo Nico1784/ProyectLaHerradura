@@ -79,7 +79,7 @@ if (rubro==="HerramientaElectrica"){
 }
 
 
-//FUNCIONES CARRITO
+//FUNCIONES DOM DEL CARRITO
 
 async function agregarCarrito(id) {
 
@@ -100,26 +100,49 @@ async function agregarCarrito(id) {
            return; //  cortar ejecución
         }
 
-      cantidad = parseInt(cantidad);
+        cantidad = parseInt(cantidad);
 
-      let subtotal = producto.precio * cantidad;
+        let item = carrito.find((prod)=>(prod.id===id)) // Valido existencia en carrito
 
-         carrito.push({
-          id: producto.id,
-          nombre: producto.nombre,
-          precio: producto.precio,
-          cantidad: cantidad,
-          subtotal: subtotal
-        });
+        console.log(item)
 
-        localStorage.setItem("carrito", JSON.stringify(carrito));
+        let subtotal=0
 
-        alertaExitosa(`Se agregó:\n${producto.nombre} — Cantidad: ${cantidad}`);
+        if(item){  // valido existencia previa del prod. 
+
+          item.cantidad+=cantidad
+
+          subtotal = item.precio * cantidad
+
+          alertaExitosa(`Se agregó:\n•${item.nombre}\n•Cantidad Agregada: ${cantidad}\n•Cantidad Total: ${item.cantidad}`);
+          
+        }else{         // Producto No existe se agrega al carrito. 
+
+           subtotal = producto.precio * cantidad;
+    
+             carrito.push({
+              id: producto.id,
+              nombre: producto.nombre,
+              precio: producto.precio,
+              cantidad: cantidad,
+              subtotal: subtotal
+            });
+    
+            
+            alertaExitosa(`Se agregó:\n•${producto.nombre}\n•Cantidad: ${cantidad}`);
+            
+          }
+          
+          localStorage.setItem("carrito", JSON.stringify(carrito));
+
+
+
+      
+
       
     }
   }
 }
-
 
 
 function mostrarCarrito(){
@@ -145,12 +168,21 @@ function mostrarCarrito(){
         carrito.forEach((p, i) => {
       
          lista.innerHTML += `
-
          <div class="item-carrito">
-           <p><strong>${i + 1}. ${p.nombre}. ID: ${p.id}</strong></p>
-           <p>Precio: $${formatoMiles(p.precio)} — Cantidad: ${p.cantidad} — Subtotal: $${formatoMiles(p.subtotal)}</p>
+
+              <div class="item-descripcion">
+               <p><strong>${i + 1}. ${p.nombre}. ID:${p.id}—</strong></p> 
+               <p>Precio: $${formatoMiles(p.precio)} — Cantidad: ${p.cantidad} — Subtotal: $${formatoMiles(p.subtotal)}</p>
+              </div>
+
+              <div class="btnSecundarios">
+                  <button class="btnCarritoSecundario" id="btnSuma" data-id="${p.id}">➕</button>
+                  <button class="btnCarritoSecundario" id="btnRestar" data-id="${p.id}">➖</button>
+                  <button class="btnCarritoSecundario" id="btnEliminarProd" data-id="${p.id}">🗑️</button>
+              </div>
+           </div>
            <hr>
-         </div>
+
           `;
 
          });
@@ -172,69 +204,99 @@ function mostrarCarrito(){
 }
 
 
-async function eliminarProductocarrito() {
+//FUNCIONES BOTONES SECUNDARIOS CARRITO 
 
-  let id = await promptSweet("Ingresar Número de ID del producto que desea eliminar");
+async function eliminarProductocarrito(id) {
 
-  if (id === false) {
-    alertaWarning("Operación Cancelada");
-    return; //  cortar ejecución
-  }
+ let item= carrito.find((item)=>item.id===id)
 
-  id = parseInt(id);
+ let confirmacion = await confirmSweet(`Estas Seguro Eliminar: ${item.nombre} del Carrito?` )
 
-  if (!validaID(carrito, id)) {
-    alertaWarning("Producto No Encontrado");
-    return; //  cortar ejecución
-  }
-
-  carrito = carrito.filter(producto => producto.id !== id);
-
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-
-  alerta("Producto Eliminado Correctamente");
-
-  mostrarCarrito();
-}
-
-
-function restarCantidad(){
-
-
-  let id=parseInt(prompt("Ingrese Id Del Producto"))
-
-  let cantidad=parseInt(prompt("Ingrese Cantidad A eliminar"))
-
-
-let producto= carrito.find(p=> p.id===id)
-
-if(!producto){
-  alert("No existe en el Carrito")
-}
-
-if (!validaInt(cantidad)){
-  alert("Caracter No Válido")
-}
-
-//Resto Cantidad
-producto.cantidad-=cantidad
-//Si llega a 0 , eliminar producto
-
-if(producto.cantidad<=0){
-
-  carrito=carrito.filter(p=>p.id!==id)
-
-  localStorage.setItem("carrito", JSON.stringify(carrito))
+ if (confirmacion === true) {
+  
+   carrito = carrito.filter(producto => producto.id !== id);
+ 
+   localStorage.setItem("carrito", JSON.stringify(carrito));
+ 
+   alerta("Producto Eliminado Correctamente");
+ 
+   mostrarCarrito();
+ }
 
 }
 
-mostrarCarrito()
+
+async function restarCantidad(id){
+
+  let item= carrito.find((item)=>item.id===id)
+
+  let cantidad = await promptSweet(`Ingresar Cantidad que desea Eliminar\nProducto: ${item.nombre}`);
+
+         // Si canceló, cortar acá
+        if (cantidad === false) {
+          alertaWarning("Operación Cancelada");
+          return;
+        }
+          
+        if(!validaInt(cantidad)){
+          alertaWarning("Caracter No Válido")
+          return;
+        }
+
+        cantidad = parseInt(cantidad);
 
 
+   if(item.cantidad<=cantidad){ 
+    
+      alertaWarning(`Cantidad que Desea Eliminar Superior Igual a la existente\n •Producto: ${item.nombre}\n•Cantidad Cargada: ${item.cantidad} `)//Si llega a 0 , eliminar producto
 
+      
 
+   }else{
+
+      item.cantidad-=cantidad //Resto Cantidad
+      item.subtotal=item.cantidad*item.precio
+      alertaExitosa("Cantidad Eliminada Correctamente")
+   }
+
+  mostrarCarrito()
 
 }
+
+
+async function sumarCantidad(id){
+
+  let item= carrito.find((item)=>item.id===id)
+
+  let cantidad = await promptSweet(`Ingresar Cantidad que desea Agregar\nProducto: ${item.nombre}`);
+
+         // Si canceló, cortar acá
+        if (cantidad === false) {
+          alertaWarning("Operación Cancelada");
+          return;
+        }
+          
+        if(!validaInt(cantidad)){
+          alertaWarning("Caracter No Válido")
+          return;
+        }
+
+        cantidad = parseInt(cantidad);
+
+   
+
+      item.cantidad+=cantidad 
+
+      item.subtotal=item.cantidad*item.precio
+
+      alertaExitosa(`Operación Exitosa\n •Producto: ${item.nombre}\n•Cantidad Agregada: ${cantidad}\n•Cantidad Total: ${item.cantidad} `)
+
+  mostrarCarrito()
+
+}
+
+
+// FUNCIONES PRINCIPALES CARRITO 
 
 async function vaciarCarrito(){
 
@@ -410,16 +472,17 @@ async function confirmSweet(mensaje) {
 
 
 
-
-
 ////// **EJECUCION DEL CODIGO** //////
 
 
 //0) CONECCION +CARGAR HTML 
+
  coneccionServidor()
 
+
 //1) HACER CLICK PARA AGREGAR CARRITO
-   document.addEventListener("click", (e) => {
+
+ document.addEventListener("click", (e) => {
     
         if (e.target.classList.contains("btnAgregar")) {
 
@@ -431,22 +494,61 @@ async function confirmSweet(mensaje) {
           }
    });
 
-//2) MOSTRA EN VENTANA FLOTANTE CARRITO 
+
+//2) MOSTRAR EN VENTANA FLOTANTE CARRITO 
 
  document.getElementById("btnCarrito").addEventListener("click", () => { mostrarCarrito()});
 
-//3) ELIMINAR PRODUCTO CARRITO
+
+//3) BOTONES PRINCIPALES CARRITO VACIAR Y CONFIRMAR 
+
+document.getElementById("btnConfirmar").addEventListener("click", () => {confirmarCarrito() });
+
+
+document.getElementById("btnVaciar").addEventListener("click", () => {vaciarCarrito() });
+
+
+//4) BOTONES SECUNDARIOS CARRITO
+
+//BOTON SECUNDARIO ELIMINAR PRODUCTO 
+document.addEventListener("click", (e) => { 
+                                              // El btn se genera despues del DOM , por eso no puedo usar getelementbyID
+  const btn = e.target.closest("#btnEliminarProd"); 
+                                           //Escucho todos los click y solo ejecuto aquel que el e.targetcloset=btnEliminarProd
+  if (!btn) return;
+
+  const id = parseInt(btn.dataset.id);
+
+  eliminarProductocarrito(id);
+});
+
+
+//BOTON SECUNDARIO RESTAR CANTIDAD 
+document.addEventListener("click", (e) => {  
+
+  const btn = e.target.closest("#btnRestar");    
   
-  document.getElementById("btneliminarProd").addEventListener("click", () => {eliminarProductocarrito() });
+  if (!btn) return;
 
-//4) CONFIRMAR CARRITO 
 
-  document.getElementById("btnConfirmar").addEventListener("click", () => {confirmarCarrito() });
+  const id = parseInt(btn.dataset.id);
 
-  document.getElementById("btnVaciar").addEventListener("click", () => {vaciarCarrito() });
+  restarCantidad(id);
+});
 
-  document.getElementById("btnRestar").addEventListener("click", () => {restarCantidad() });
-  
+
+//BOTON SECUNDARIO RESTAR CANTIDAD 
+document.addEventListener("click", (e) => {  
+
+  const btn = e.target.closest("#btnSuma");  
+
+  if (!btn) return;
+
+  const id = parseInt(btn.dataset.id);
+
+  sumarCantidad(id);
+});
+
 
 
 
