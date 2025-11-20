@@ -14,7 +14,7 @@ body {
 }
 
 .contenedorMainProductos .contenedor-tarjetas .producto1, .contenedorMainProductos .contenedor-tarjetas .producto2, .contenedorMainProductos .contenedor-tarjetas .producto3, .contenedorMainProductos .contenedor-tarjetas .producto4, .contenedorMainProductos .contenedor-tarjetas .producto5, .contenedorMainProductos .contenedor-tarjetas .producto6, .contenedorMainProductos .contenedor-tarjetas .producto7, .contenedorMainProductos .contenedor-tarjetas .producto8, .contenedorMainProductos .contenedor-tarjetas .producto9, .contenedorMainProductos .contenedor-tarjetas .producto10, .contenedorMainProductos .contenedor-tarjetas .producto11, .contenedorMainProductos .contenedor-tarjetas .producto12 {
-  height: 60vh;
+  height: 65vh;
   width: 13vw;
   display: flex;
   flex-direction: column;
@@ -46,6 +46,7 @@ body {
 }
 .contenedorMainProductos .contenedor-tarjetas .producto1 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto2 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto3 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto4 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto5 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto6 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto7 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto8 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto9 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto10 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto11 .tarjeta-descripcion, .contenedorMainProductos .contenedor-tarjetas .producto12 .tarjeta-descripcion {
   border-top: 2px solid rgb(184, 184, 184);
+  border-bottom: 2px solid rgb(184, 184, 184);
   padding: 5px 0;
   font-weight: 400;
   font-size: 14px;
@@ -54,8 +55,10 @@ body {
   padding: 5px;
   text-align: center;
 }
-.contenedorMainProductos .contenedor-tarjetas .producto1:hover, .contenedorMainProductos .contenedor-tarjetas .producto2:hover, .contenedorMainProductos .contenedor-tarjetas .producto3:hover, .contenedorMainProductos .contenedor-tarjetas .producto4:hover, .contenedorMainProductos .contenedor-tarjetas .producto5:hover, .contenedorMainProductos .contenedor-tarjetas .producto6:hover, .contenedorMainProductos .contenedor-tarjetas .producto7:hover, .contenedorMainProductos .contenedor-tarjetas .producto8:hover, .contenedorMainProductos .contenedor-tarjetas .producto9:hover, .contenedorMainProductos .contenedor-tarjetas .producto10:hover, .contenedorMainProductos .contenedor-tarjetas .producto11:hover, .contenedorMainProductos .contenedor-tarjetas .producto12:hover {
-  animation: bigger 0.4s ease-in forwards;
+.contenedorMainProductos .contenedor-tarjetas .producto1 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto2 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto3 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto4 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto5 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto6 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto7 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto8 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto9 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto10 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto11 .tarjeta-precio, .contenedorMainProductos .contenedor-tarjetas .producto12 .tarjeta-precio {
+  font-family: "Arvo";
+  font-weight: 700;
+  margin: 8px 0;
 }
 
 @keyframes vibrate {
@@ -86,19 +89,19 @@ body {
 }
 .mi-popup {
   background-color: #222;
-  color: white;
+  color: rgb(255, 255, 255);
   border-radius: 20px;
 }
 
 .mi-titulo {
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 300;
   font-family: "Arvo";
   color: #fdfdfd;
 }
 
 .mi-texto {
-  font-size: 35px;
+  font-size: 30px;
   font-family: "Arvo";
 }
 
@@ -107,6 +110,10 @@ body {
   color: white !important;
   border-radius: 10px !important;
   padding: 10px 20px !important;
+}
+
+.btn-azul {
+  background-color: rgba(35, 84, 243, 0.8901960784) !important;
 }
 
 .contenedor-header {
@@ -260,30 +267,30 @@ body {
 
 /* Caja  centrada */
 .carrito-contenido {
-  background: rgb(19, 18, 18);
+  background: rgb(14, 13, 13);
   color: aliceblue;
   padding: 20px;
   border-radius: 15px;
-  width: 900px;
+  width: 1000px;
   max-height: 100vh;
   overflow-y: auto; /* scroll si hay muchos productos */
   box-shadow: 0 0 10px rgba(247, 245, 245, 0.5);
   font-family: "Arvo";
-  font-weight: 100;
+  font-weight: 400;
 }
 .carrito-contenido h2 {
-  margin-top: 15px;
-  font-weight: 100;
+  margin: 20px;
+  font-weight: 50;
   font-weight: lighter;
-}
-.carrito-contenido p {
-  margin: 10px 0 5px 0;
 }
 .carrito-contenido .item-carrito {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   gap: 1px;
+}
+.carrito-contenido .item-carrito p {
+  font-size: 17px;
+  margin-top: 15px;
 }
 .carrito-contenido .item-descripcion {
   display: flex;
@@ -294,24 +301,6 @@ body {
   font-size: 15px;
   width: 30px;
   margin-left: 8px;
-}
-.carrito-contenido .hr-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* espacio entre hr y botones */
-  margin-top: 8px;
-}
-.carrito-contenido .hr-actions hr {
-  flex: 1; /* ocupa todo el espacio disponible */
-  height: 1px;
-  border: none;
-  background: linear-gradient(90deg, #e6e9ed, #d8dbe0);
-  margin: 0;
-}
-.carrito-contenido .actions {
-  display: flex;
-  gap: 8px;
-  margin-left: 6px;
 }
 
 .footer {

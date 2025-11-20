@@ -10,8 +10,7 @@ let productos=[]
 
 
 
-
-//FUNCIONES PRINCIPALES CONECCION SERVIDOR + CARGAR PRODUCTOS AL HTML 
+//FUNCIONES PRINCIPALES CONECCION SERVIDOR + CARGAR PRODUCTOS AL HTML //////////
 
 async function coneccionServidor() {
     try {
@@ -43,10 +42,9 @@ if (rubro==="HerramientaElectrica"){
                 <p class="titulo-tarjeta">${prod.nombre}</p>
                 <img class="img-tarjeta" src="../img/Herramientas Electricas/${prod.img}" alt="${prod.nombre}">
                 <p class="tarjeta-descripcion">${prod.descrip}</p>
-                <p class="tarjeta-descripcion">$${formatoMiles(prod.precio)}</p>
+                <p class="tarjeta-precio">$${formatoMiles(prod.precio)}</p>
                 <button class="btnAgregar" >Agregar Carrito</button >
             </div>`
-
  })
 
    contenedorProductos.innerHTML=inner
@@ -67,11 +65,10 @@ if (rubro==="HerramientaElectrica"){
                 <p class="titulo-tarjeta">${prod.nombre}</p>
                 <img class="img-tarjeta" src="../img/Herramientas Manuales/${prod.img}" alt="${prod.nombre}">
                 <p class="tarjeta-descripcion">${prod.descrip}</p>
-                <p class="tarjeta-descripcion">$${formatoMiles(prod.precio)}</p>
+                <p class="tarjeta-precio">$${formatoMiles(prod.precio)}</p>
                 <button class="btnAgregar" >Agregar Carrito</button >
             </div>`
   })
-
   contenedorProductos.innerHTML=inner
 
 }
@@ -79,15 +76,13 @@ if (rubro==="HerramientaElectrica"){
 }
 
 
-//FUNCIONES DOM DEL CARRITO
+//FUNCIONES DOM DEL CARRITO //////////
 
 async function agregarCarrito(id) {
+       
+  let producto=  productos.find((prod)=>(prod.id===id)) 
 
-  for (let producto of productos) {
-
-    if (producto.id === id) {
-
-      let cantidad = await promptSweet(`Ingresar Cantidad ${producto.nombre}`);
+  let cantidad = await promptSweet(`Ingresar Cantidad ${producto.nombre}`);
 
          // Si canceló, cortar acá
         if (cantidad === false) {
@@ -97,26 +92,24 @@ async function agregarCarrito(id) {
           
         if (!validaInt(cantidad)) {
            alertaWarning("Caracter No válido");
-           return; //  cortar ejecución
+           return; 
         }
 
-        cantidad = parseInt(cantidad);
+   cantidad = parseInt(cantidad);
 
-        let item = carrito.find((prod)=>(prod.id===id)) // Valido existencia en carrito
+   let item = carrito.find((prod)=>(prod.id===id)) // Valido existencia en carrito*/
 
-        console.log(item)
+   let subtotal=0
 
-        let subtotal=0
-
-        if(item){  // valido existencia previa del prod. 
+        if(item){  // valido existencia previa del prod. */
 
           item.cantidad+=cantidad
 
-          subtotal = item.precio * cantidad
+          item.subtotal = item.precio * cantidad
 
           alertaExitosa(`Se agregó:\n•${item.nombre}\n•Cantidad Agregada: ${cantidad}\n•Cantidad Total: ${item.cantidad}`);
           
-        }else{         // Producto No existe se agrega al carrito. 
+        }else{      // Producto No existe, se agrega al carrito. */
 
            subtotal = producto.precio * cantidad;
     
@@ -127,27 +120,16 @@ async function agregarCarrito(id) {
               cantidad: cantidad,
               subtotal: subtotal
             });
-    
-            
             alertaExitosa(`Se agregó:\n•${producto.nombre}\n•Cantidad: ${cantidad}`);
-            
           }
           
-          localStorage.setItem("carrito", JSON.stringify(carrito));
+     localStorage.setItem("carrito", JSON.stringify(carrito));
 
-
-
-      
-
-      
-    }
-  }
 }
 
 
 function mostrarCarrito(){
 
-     
     if (carrito.length === 0) {
 
      alerta("El Carrito esta Vacío")
@@ -171,8 +153,10 @@ function mostrarCarrito(){
          <div class="item-carrito">
 
               <div class="item-descripcion">
-               <p><strong>${i + 1}. ${p.nombre}. ID:${p.id}—</strong></p> 
+
+               <p><strong>${i + 1}. ${p.nombre}. ID:${p.id} — </strong></p> 
                <p>Precio: $${formatoMiles(p.precio)} — Cantidad: ${p.cantidad} — Subtotal: $${formatoMiles(p.subtotal)}</p>
+
               </div>
 
               <div class="btnSecundarios">
@@ -193,18 +177,13 @@ function mostrarCarrito(){
           // Cerrar el carrito
           document.getElementById("cerrarCarrito").addEventListener("click", () => {
 
-          document.getElementById("carritoOverlay").style.display = "none";  // desactivo overlay
-       });
-
-
-       
+              document.getElementById("carritoOverlay").style.display = "none";  // desactivo overlay
+           });
      }
-
-  
 }
 
 
-//FUNCIONES BOTONES SECUNDARIOS CARRITO 
+//FUNCIONES BOTONES SECUNDARIOS CARRITO //////////
 
 async function eliminarProductocarrito(id) {
 
@@ -247,10 +226,7 @@ async function restarCantidad(id){
 
 
    if(item.cantidad<=cantidad){ 
-    
-      alertaWarning(`Cantidad que Desea Eliminar Superior Igual a la existente\n •Producto: ${item.nombre}\n•Cantidad Cargada: ${item.cantidad} `)//Si llega a 0 , eliminar producto
-
-      
+         alertaWarning(`Cantidad que Desea Eliminar Superior Igual a la existente\n •Producto: ${item.nombre}\n•Cantidad Cargada: ${item.cantidad} `)
 
    }else{
 
@@ -296,7 +272,7 @@ async function sumarCantidad(id){
 }
 
 
-// FUNCIONES PRINCIPALES CARRITO 
+///FUNCIONES PRINCIPALES CARRITO //////////
 
 async function vaciarCarrito(){
 
@@ -316,7 +292,9 @@ async function vaciarCarrito(){
       localStorage.setItem("carrito", JSON.stringify(carrito))
 
       alertaExitosa("Todos Productos Fueron eliminados")
+
       document.getElementById("carritoOverlay").style.display = "none"
+
     }else{
       mostrarCarrito()
     }
@@ -328,39 +306,26 @@ async function vaciarCarrito(){
 
 async function confirmarCarrito(){
 
-
-
-   if (carrito.length === 0) {
-
-      lista.innerHTML = "<p>El carrito está vacío</p>";
-
-    } else {
-              let totalcarrito= carrito.reduce((acumulador,producto)=>{
-               return acumulador+producto.subtotal
-               },0)
+ let totalcarrito= carrito.reduce((acumulador,producto)=>{
+       return acumulador+producto.subtotal
+        },0)
               
-               let confirmacion= await confirmSweet(`Desea Adquirir el Carrito?\nTotal Carrito: $${formatoMiles(totalcarrito)}`)
+ let confirmacion= await confirmSweet(`Desea Adquirir el Carrito?\nTotal Carrito: $${formatoMiles(totalcarrito)}`)
 
-             
-
-
-              if(confirmacion){
+  if(confirmacion){
                
-                 carrito=[]
-                 localStorage.setItem("carrito",JSON.stringify(carrito))
-                 
-                 document.getElementById("carritoOverlay").style.display = "none"
-                 alerta("Carrito Procesado Correctamente. Gracias por su compra")
-                 
-                
-                 //console.log(carrito)
-               }
-            }   
+    carrito=[]
+    localStorage.setItem("carrito",JSON.stringify(carrito))
+
+    document.getElementById("carritoOverlay").style.display = "none"
+
+    alertaExitosa("Carrito Procesado Correctamente. Gracias por su compra")
+  }   
 }
 
 
 
-///FUNCIONES PARA VALIDACIONES 
+///FUNCIONES PARA VALIDACIONES //////////
 
 function validaID(arreglo, id) {
   return arreglo.some(prod => prod.id === id);
@@ -386,14 +351,14 @@ function validaInt(valor) {
   return false
 }
 
-//FUNCIONES AUXILIARES 
+//FUNCIONES AUXILIARES //////////
 
 function formatoMiles(numero) {
   return numero.toLocaleString("es-AR");
 }
 
 
-// FUNCIONES CREACION ALERTAS 
+///FUNCIONES CREACION ALERTAS //////////
 
 function alertaExitosa(texto){
   Swal.fire({
@@ -401,7 +366,7 @@ function alertaExitosa(texto){
   icon: "success",
   draggable: true,
   theme: 'dark',
-  customClass: {
+  customClass: {  //Estilo css//
     popup: 'mi-popup',
     title: 'mi-titulo',
     htmlContainer: 'mi-texto',
@@ -413,9 +378,16 @@ function alertaExitosa(texto){
 
 function alerta(texto){
    Swal.fire({
-     title: texto,
+    icon: "info", 
+    title: texto,
      draggable: true,
-     theme: 'dark'
+     theme: 'dark',
+      customClass: {  //Estilo css//
+    popup: 'mi-popup',
+    title: 'mi-titulo',
+    htmlContainer: 'mi-texto',
+    confirmButton: 'mi-boton btn-azul'
+  }
 });
 }
 
@@ -424,7 +396,15 @@ function alertaWarning(texto){
   title: texto,
   icon: "warning",
   draggable: true,
-  theme: 'dark'
+  theme: 'dark',
+  customClass: {  //Estilo css//
+    popup: 'mi-popup',
+    title: 'mi-titulo',
+    htmlContainer: 'mi-texto',
+    confirmButton: 'mi-boton btn-azul'
+  }
+  
+  
 });
 
 
@@ -439,14 +419,20 @@ async function promptSweet(mensaje) {
     inputPlaceholder: "",
     showCancelButton: true,
     confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar"
+    cancelButtonText: "Cancelar",
+    customClass: {  //Estilo css//
+    popup: 'mi-popup',
+    title: 'mi-titulo',
+    htmlContainer: 'mi-texto',
+    confirmButton: 'mi-boton btn-azul'
+  }
   });
 
   if (result.isConfirmed) {
     return result.value;
        // lo que escribió el usuario
   } else {
-     return false;           // si canceló
+     return false;  // si canceló
   }
 }
 
@@ -457,7 +443,14 @@ async function confirmSweet(mensaje) {
     theme:"dark",
     showCancelButton: true,
     confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar"
+    cancelButtonText: "Cancelar",
+     customClass: {  //Estilo css//
+     popup: 'mi-popup',
+     title: 'mi-titulo',
+     htmlContainer: 'mi-texto',
+     confirmButton: 'mi-boton btn-azul'
+  }
+
   });
   
  
@@ -465,26 +458,24 @@ async function confirmSweet(mensaje) {
  
     return true;  
   } else {
-    alertaWarning("Operacion Cancelada");           // si canceló
+    alertaWarning("Operacion Cancelada"); // si canceló
   }
 }
-
 
 
 
 ////// **EJECUCION DEL CODIGO** //////
 
 
-//0) CONECCION +CARGAR HTML 
 
+//0) CONECCION + CARGAR HTML //////
  coneccionServidor()
 
-
-//1) HACER CLICK PARA AGREGAR CARRITO
+//1) HACER CLICK PARA AGREGAR CARRITO //////
 
  document.addEventListener("click", (e) => {
     
-        if (e.target.classList.contains("btnAgregar")) {
+        if (e.target.classList.contains("btnAgregar")) {   // El btn se genera despues del DOM , por eso no puedo usar getelementbyID
 
            const tarjeta = e.target.closest(".tarjeta");
 
@@ -494,13 +485,12 @@ async function confirmSweet(mensaje) {
           }
    });
 
-
-//2) MOSTRAR EN VENTANA FLOTANTE CARRITO 
+//2) MOSTRAR EN VENTANA FLOTANTE CARRITO //////
 
  document.getElementById("btnCarrito").addEventListener("click", () => { mostrarCarrito()});
 
 
-//3) BOTONES PRINCIPALES CARRITO VACIAR Y CONFIRMAR 
+//3) BOTONES PRINCIPALES CARRITO VACIAR Y CONFIRMAR //////
 
 document.getElementById("btnConfirmar").addEventListener("click", () => {confirmarCarrito() });
 
@@ -508,9 +498,10 @@ document.getElementById("btnConfirmar").addEventListener("click", () => {confirm
 document.getElementById("btnVaciar").addEventListener("click", () => {vaciarCarrito() });
 
 
-//4) BOTONES SECUNDARIOS CARRITO
+//4) BOTONES SECUNDARIOS CARRITO //////
 
-//BOTON SECUNDARIO ELIMINAR PRODUCTO 
+
+//BOTON SECUNDARIO ELIMINAR PRODUCTO //////
 document.addEventListener("click", (e) => { 
                                               // El btn se genera despues del DOM , por eso no puedo usar getelementbyID
   const btn = e.target.closest("#btnEliminarProd"); 
@@ -523,7 +514,7 @@ document.addEventListener("click", (e) => {
 });
 
 
-//BOTON SECUNDARIO RESTAR CANTIDAD 
+//BOTON SECUNDARIO RESTAR CANTIDAD //////
 document.addEventListener("click", (e) => {  
 
   const btn = e.target.closest("#btnRestar");    
@@ -537,7 +528,7 @@ document.addEventListener("click", (e) => {
 });
 
 
-//BOTON SECUNDARIO RESTAR CANTIDAD 
+//BOTON SECUNDARIO SUMAR CANTIDAD //////
 document.addEventListener("click", (e) => {  
 
   const btn = e.target.closest("#btnSuma");  

@@ -50,7 +50,7 @@ body{
 //Extend: Tarjeta//
 
 %tarjeta {
-  height: 60vh;
+  height: 65vh;
   width: 13vw;
   display: flex;
   flex-direction: column;
@@ -87,6 +87,7 @@ body{
 
   .tarjeta-descripcion {
     border-top: 2px solid rgb(184, 184, 184);
+     border-bottom: 2px solid rgb(184, 184, 184);
     padding: 5px 0;
     font-weight: 400;
     font-size: 14px;
@@ -94,12 +95,22 @@ body{
     color: rgb(14, 13, 13);
     padding: 5px;
     text-align: center;
-
   }
-  &:hover{
-    animation: bigger 0.4s ease-in forwards;
 
-  }
+    .tarjeta-precio{
+      
+      font-family:$fuente;
+      font-weight: 700;
+      margin: 8px 0;
+
+
+    }
+
+  
+  // &:hover{
+  //   animation: bigger 0.4s ease-in forwards;
+
+  // }
 }
 
 //Animaciones 
@@ -144,19 +155,19 @@ body{
 
 .mi-popup {
   background-color: #222;
-  color: white;
+  color: rgb(255, 255, 255);
   border-radius: 20px;
 }
 
 .mi-titulo {
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 300;
   font-family: $fuente;
   color: #fdfdfd;
 }
 
 .mi-texto {
-  font-size: 35px;
+  font-size: 30px;
   font-family: $fuente;
 }
 
@@ -165,14 +176,10 @@ body{
   color: white !important;
   border-radius: 10px !important;
   padding: 10px 20px !important;
+
 }
 
-// .fuente-titulo {
-//   font-family: 'Montserrat', sans-serif;
-//   font-size: 16px;
-// }
+.btn-azul{
+    background-color: #2354f3e3 !important;
+  }
 
-// .fuente-texto {
-//   font-family: 'Roboto', sans-serif;
-//   font-size: 18px;
-// }
