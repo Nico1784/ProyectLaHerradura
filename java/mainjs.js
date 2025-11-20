@@ -24,6 +24,7 @@ async function coneccionServidor() {
     }
 }
 
+
  function cargarProd(){
 
 let rubro= document.body.dataset.rubro // Identifico la Pagina 
@@ -446,7 +447,7 @@ async function confirmSweet(mensaje) {
     showCancelButton: true,
     confirmButtonText: "Aceptar",
     cancelButtonText: "Cancelar",
-    
+
      customClass: {  //Estilo css//
      popup: 'mi-popup',
      title: 'mi-titulo',
