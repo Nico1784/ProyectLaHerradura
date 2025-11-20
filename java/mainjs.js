@@ -101,7 +101,7 @@ async function agregarCarrito(id) {
 
    let subtotal=0
 
-        if(item){  // valido existencia previa del prod. */
+        if(item){  // Si existe solo sumo a la cantidad ya cargada */
 
           item.cantidad+=cantidad
 
@@ -134,7 +134,7 @@ function mostrarCarrito(){
 
      alerta("El Carrito esta Vacío")
 
-     document.getElementById("carritoOverlay").style.display = "none"
+     document.getElementById("carritoOverlay").style.display = "none" /*Desactivo Ventana Flotante*/
 
     } else {
       
@@ -154,7 +154,8 @@ function mostrarCarrito(){
 
               <div class="item-descripcion">
 
-               <p><strong>${i + 1}. ${p.nombre}. ID:${p.id} — </strong></p> 
+               <p class="strong">${i + 1}. ${p.nombre}. ID:${p.id}-</p> 
+
                <p>Precio: $${formatoMiles(p.precio)} — Cantidad: ${p.cantidad} — Subtotal: $${formatoMiles(p.subtotal)}</p>
 
               </div>
@@ -173,11 +174,11 @@ function mostrarCarrito(){
 
           lista.innerHTML += `<h2>Total Carrito $${formatoMiles(totalcarrito)}</h2>`
 
-          document.getElementById("carritoOverlay").style.display = "flex";   
-          // Cerrar el carrito
-          document.getElementById("cerrarCarrito").addEventListener("click", () => {
+          document.getElementById("carritoOverlay").style.display = "flex";  // Activo el overlay 
+         
+          document.getElementById("cerrarCarrito").addEventListener("click", () => {  // Cerrar el carrito//
 
-              document.getElementById("carritoOverlay").style.display = "none";  // desactivo overlay
+               document.getElementById("carritoOverlay").style.display = "none";  // desactivo overlay
            });
      }
 }
@@ -420,6 +421,7 @@ async function promptSweet(mensaje) {
     showCancelButton: true,
     confirmButtonText: "Aceptar",
     cancelButtonText: "Cancelar",
+
     customClass: {  //Estilo css//
     popup: 'mi-popup',
     title: 'mi-titulo',
@@ -444,6 +446,7 @@ async function confirmSweet(mensaje) {
     showCancelButton: true,
     confirmButtonText: "Aceptar",
     cancelButtonText: "Cancelar",
+    
      customClass: {  //Estilo css//
      popup: 'mi-popup',
      title: 'mi-titulo',

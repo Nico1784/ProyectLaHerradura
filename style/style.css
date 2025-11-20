@@ -286,14 +286,20 @@ body {
 .carrito-contenido .item-carrito {
   display: flex;
   justify-content: space-between;
-  gap: 1px;
-}
-.carrito-contenido .item-carrito p {
-  font-size: 17px;
-  margin-top: 15px;
+  align-items: end;
 }
 .carrito-contenido .item-descripcion {
+  align-items: center;
   display: flex;
+}
+.carrito-contenido .item-descripcion .strong {
+  font-size: 20px;
+  font-weight: 500;
+}
+.carrito-contenido .item-descripcion p {
+  margin-left: 8px;
+  font-size: 17px;
+  margin-top: 12px;
 }
 .carrito-contenido .btnCarritoSecundario {
   background-color: rgb(5, 5, 5);

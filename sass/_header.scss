@@ -224,26 +224,22 @@
    .item-carrito{
       display: flex;
       justify-content:space-between;
+      align-items: end;
       
-      gap:1px;
-      
-   
-       p{
-         font-size: 17px;
-
-         margin-top: 15px ;
-
-
-       }
-      //   
-
-      
-    }
-    .item-descripcion{
-
+   }
+   .item-descripcion{
+      align-items: center;
       display: flex;
       
-      
+      .strong{
+       font-size:20px;
+       font-weight: 500;
+      }
+   
+     p{ margin-left: 8px;
+       font-size: 17px;
+        margin-top: 12px ;
+     }
       // justify-content: left;
 
     }
